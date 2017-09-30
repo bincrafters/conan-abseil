@@ -18,13 +18,24 @@ class AbseilConan(ConanFile):
             installer.install(" ".join(["msys2", package_name]))
         elif os_info.linux_distro == "ubuntu":
             tools.save("/etc/apt/sources.list.d/bazel.list", "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8")
-            keyfile = "bazel-release.pub.gpg"
-            if os.path.isfile(keyfile): 
-                os.remove(keyfile)
-            tools.download("https://bazel.build/bazel-release.pub.gpg", keyfile)
-            self.run("apt-key add " + keyfile)
+            key_file = "bazel-release.pub.gpg"
+            if os.path.isfile(key_file): 
+                os.remove(key_file)
+            tools.download("https://bazel.build/bazel-release.pub.gpg", key_file)
+            self.run("apt-key add " + key_file)
             installer = SystemPackageTool()
             installer.install(" ".join(["openjdk-8-jdk", package_name]))
+        elif os_info.linux_distro == "fedora":
+            self.run("dnf copr enable vbatts/bazel")
+            installer = SystemPackageTool()
+            installer.install(" ".join(["openjdk-8-jdk", package_name]))
+        elif os_info.linux_distro == "centos":
+            repo_file = "vbatts-bazel-epel-7.repo"
+            if os.path.isfile(repo_file): 
+                os.remove(repo_file)
+            tools.download("https://copr.fedorainfracloud.org/coprs/vbatts/bazel/repo/epel-7/vbatts-bazel-epel-7.repo", repo_file)
+            installer = SystemPackageTool()
+            installer.install(" ".join(["java-1.8.0-openjdk", package_name]))
         elif os_info.is_macos:
             installer = SystemPackageTool()
             installer.install(" ".join(["java8", package_name]))            
