@@ -38,20 +38,22 @@ class AbseilConan(ConanFile):
             if os_info.is_windows:
                 if str(self.settings.arch) == "x86":
                     self.output.info("using 32bit for bazel")
-                    self.run("bazel build --cpu=x86_windows_msvc absl/...:all")
+                    self.run("bazel --batch build --batch --cpu=x86_windows_msvc absl/...:all")
                 else:
                     self.output.info("using 64bit for bazel")
-                    self.run("bazel build --cpu=x64_windows_msvc absl/...:all")
+                    self.run("bazel --batch build --cpu=x64_windows_msvc absl/...:all")
             else: 
-                self.run("bazel build absl/...:all")
+                self.run("bazel --batch build absl/...:all")
                     
     def package(self):
-        self.copy("*.h", dst="include")
-        self.copy("*.lib", dst="lib", keep_path=False)
-        self.copy("*.dll", dst="bin", keep_path=False)
-        self.copy("*.dylib*", dst="lib", keep_path=False)
-        self.copy("*.so", dst="lib", keep_path=False)
-        self.copy("*.a", dst="lib", keep_path=False, symlinks=True)
+        abseil_root = os.path.join("abseil-cpp", "bazel-abseil-cpp")
+        out_dir = os.path.join(abseil_root, "bazel-out")
+        self.copy("*.h", dst="include",  src=abseil_root, excludes="external")
+        self.copy("*.lib", dst="lib", src=out_dir, excludes="external", keep_path=False)
+        self.copy("*.dll", dst="bin", src=out_dir, excludes="external", keep_path=False)
+        self.copy("*.dylib*", dst="lib", src=out_dir, excludes="external", keep_path=False)
+        self.copy("*.so", dst="lib", src=out_dir, excludes="external", keep_path=False)
+        self.copy("*.a", dst="lib", src=out_dir, excludes="external", keep_path=False)
 
     def package_info(self):
         tools.collect_libs(self)
