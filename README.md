@@ -32,7 +32,7 @@ If you handle multiple dependencies in your project is better to add a *conanfil
     [generators]
     txt
 
-Complete the installation of requirements for your project running:</small></span>
+Complete the installation of requirements for your project running:
 
     $ mkdir build && cd build && conan install ..
 	
@@ -66,8 +66,7 @@ The second step is to update the "alias package":
 
 The third step is to upload the alias package:
 
-	$conan upload Abseil/latest@bincrafters/testing -r bincrafters
-	
+	$conan upload Abseil/latest@bincrafters/testing --all -r bincrafters
 	
 ### License
 [Apache License 2.0](LICENSE)
