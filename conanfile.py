@@ -3,14 +3,14 @@ from conans.tools import os_info, SystemPackageTool, ChocolateyTool
 
 class AbseilConan(ConanFile):
     name = "Abseil"
-    version = "09302017"
+    version = "20170930"
     settings = "os", "arch", "compiler", "build_type"
     url = "https://github.com/bincrafters/conan-abseil"
     description = "Abseil Common Libraries (C++) from Google"
     license = "https://github.com/abseil/abseil-cpp/blob/master/LICENSE"
-    default_options = "shared=False"
-    options = {"shared": [True, False]}
- 
+    options = {"shared": [True, False], "with_msys2":  [True, False], "with_bazel":  [True, False], "with_java8": [True, False]}
+    default_options = "shared=False", "with_msys2=False", "with_bazel=False", "with_java8=False"
+    
     def system_requirements(self):
         package_name = "bazel"
         if os_info.is_windows:
