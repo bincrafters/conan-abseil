@@ -12,7 +12,7 @@ Abseil has a unique versioning philosophy, so this package offers a unique versi
 
 ["Conan Alias feature Explained"](http://conanio.readthedocs.io/en/latest/reference/commands/alias.html?highlight=conan%20alias)
 
-In summary, if users want to follow the Abseil philosophy of "Live At Head" as closely as possible while getting the benefits of using Conan, they can reference the version of "latest" in their requirements as shown in the example below.  "latest" is just an alias which redirects to an actual version of an Abseil package. Bincrafters will compile, create and upload binaries for the package on some recurring basis, and "latest" will regularly be updated to point to the most recent one.  Of note, because Abseil does not use semantic versioning, a datestamp will be used as the version number on the actual Bincrafters packages and the `source()` method of each version of the recipe will point to the most recent commit of Abseil available at the time that package version was created.  Currently, there is only a "master" branch for Abseil. 
+In summary, if users want to follow the Abseil philosophy of "Live At Head" as closely as possible while getting the benefits of using Conan, they can reference the version of "latest" in their requirements as shown in the example below.  "latest" is just an alias which redirects to an actual version of an Abseil package. Bincrafters will compile, create and upload binaries for the package on some recurring basis, and "latest" will regularly be updated to point to the most recent one.  Of note, because Abseil does not use semantic versioning, a datestamp will be used as the version number on the concrete Bincrafters packages and the `source()` method of each version of the recipe will point to the most recent commit of Abseil available at the time that package version was created.  Currently, there is only a "master" branch for Abseil. 
 
 The result of using "latest" is that whenever Bincrafters uploads a new version of the recipe and updates the alias, your next call to "conan install" will download (or build if necessary), and the immediately begin using the latest version of Abseil. 
 
@@ -36,7 +36,7 @@ Complete the installation of requirements for your project running:</small></spa
 
     $ mkdir build && cd build && conan install ..
 	
-Note: It is recommended that you run conan install from a build directory and not the root of the project directory.  This is because conan generates *conanbuildinfo* files specific to a single build configuration which by default comes from an autodetected default profile located in ~/.conan/profiles/default .  If you pass different build configuration options to conan install, it will generate different *conanbuildinfo* files.  Thus, they shoudl not be added to the root of the project, nor committed to git. 
+Note: It is recommended that you run conan install from a build directory and not the root of the project directory.  This is because conan generates *conanbuildinfo* files specific to a single build configuration which by default comes from an autodetected default profile located in ~/.conan/profiles/default .  If you pass different build configuration options to conan install, it will generate different *conanbuildinfo* files.  Thus, they should not be added to the root of the project, nor committed to git. 
 
 ## For Packagers: Publish this Package
 
