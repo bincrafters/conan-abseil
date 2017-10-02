@@ -25,7 +25,7 @@ class AbseilConan(ConanFile):
             if os_info.is_windows:
                 if str(self.settings.arch) == "x86":
                     self.output.info("using 32bit for bazel")
-                    self.run("bazel --batch build --batch --cpu=x86_windows_msvc absl/...:all")
+                    self.run("bazel --batch build --cpu=x86_windows_msvc absl/...:all")
                 else:
                     self.output.info("using 64bit for bazel")
                     self.run("bazel --batch build --cpu=x64_windows_msvc absl/...:all")
