@@ -9,12 +9,12 @@ class AbseilConan(ConanFile):
     url = "https://github.com/bincrafters/conan-abseil"
     description = "Abseil Common Libraries (C++) from Google"
     license = "https://github.com/abseil/abseil-cpp/blob/master/LICENSE"
-    options = {"shared": [True, False], "with_bazel":  [True, False]}
-    default_options = "shared=False",  "with_bazel=False"
+    options = {"with_bazel":  [True, False]}
+    default_options = "with_bazel=True"
     
     def build_requirements(self):
-        if self.options.with_bazel == True:
-            self.build_requires("Bazel/0.6.0@bincrafters/testing")
+        if self.options.with_bazel:
+            self.build_requires("bazel_installer/0.6.0@bincrafters/testing")
         
     def source(self):
         source_url = "https://github.com/abseil/abseil-cpp"
