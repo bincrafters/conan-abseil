@@ -15,6 +15,7 @@ if __name__ == "__main__":
         with open("conanfile.py", "r") as conanfile:
             contents = conanfile.read()
             name = re.search(r'name\s*=\s*"(\S*)"', contents).groups()[0]
+            version = re.search(r'version\s*=\s*"(\S*)"', contents).groups()[0]
         
         os.environ["CONAN_USERNAME"] = username
         os.environ["CONAN_CHANNEL"] = channel
