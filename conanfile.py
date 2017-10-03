@@ -9,6 +9,7 @@ class AbseilConan(ConanFile):
     url = "https://github.com/bincrafters/conan-abseil"
     description = "Abseil Common Libraries (C++) from Google"
     license = "https://github.com/abseil/abseil-cpp/blob/master/LICENSE"
+    short_paths = True
     options = {"with_bazel":  [True, False]}
     default_options = "with_bazel=True"
     
@@ -25,12 +26,12 @@ class AbseilConan(ConanFile):
             if os_info.is_windows:
                 if str(self.settings.arch) == "x86":
                     self.output.info("using 32bit for bazel")
-                    self.run("bazel --batch build --cpu=x86_windows_msvc absl/...:all")
+                    self.run("bazel --output_user_root=conan_out --batch build --cpu=x86_windows_msvc absl/...:all")
                 else:
                     self.output.info("using 64bit for bazel")
-                    self.run("bazel --batch build --cpu=x64_windows_msvc absl/...:all")
+                    self.run("bazel --output_user_root=conan_out --batch build --cpu=x64_windows_msvc absl/...:all")
             else: 
-                self.run("bazel --batch build absl/...:all")
+                self.run("bazel --output_user_root=conan_out --batch build absl/...:all")
                     
     def package(self):
         abseil_root = os.path.join("abseil-cpp", "bazel-abseil-cpp")
