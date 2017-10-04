@@ -24,6 +24,8 @@ This package has the following custom package options:
 Of note, the bincrafters Bazel package has it's own option for including an embedded JDK, or using one already installed.  Here's an example of installing Abseil with the default option to include Bazel, but to tell Bazel not to include the embedded JDK. 
 	
     $ conan install Abseil/latest@bincrafters/testing -o bazel_installer:with_jdk=False
+
+Also of note, the Bazel package currently only supports x64 architecture.  If you want to use this package on a different architecture, you must have your own Bazel installation, and then set the `with_bazel` to `False` as shown above.
 	
 ### Conan "latest" version convention
 
