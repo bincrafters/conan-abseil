@@ -9,6 +9,22 @@ The packages generated with this **conanfile** can be found in [Bintray](https:/
 
 ## For Users: Use this package
 
+### Custom Package Options
+
+This package has the following custom package options: 
+
+|Option Name	| Default Value   | Possible Value    
+|-----------------|------------------|------------------
+|with_bazel       | True               | True/False              
+
+`with_bazel` - The current default of true assumes you do not have Bazel installed, and so this package will include the bincrafters package for Bazel as a dependency. Thus, Bazel will be downloaded and installed automatically.  This can add significant convenience in many cases.  However, this will obviously take additional time to download which is slightly inefficient if you already have Bazel installed.  If this option is set to `False` a binary called `bazel` must be available at the CLI (typically via the PATH environment variable).  Conan options can be set in multiple places such as *conanfile.txt* and *conanfile.py*, or passed at the CLI when running `conan install ..` for example:  
+
+    $ conan install Abseil/latest@bincrafters/testing -o Abseil:with_bazel=False
+	
+Of note, the bincrafters Bazel package has it's own option for including an embedded JDK, or using one already installed.  Here's an example of installing Abseil with the default option to include Bazel, but to tell Bazel not to include the embedded JDK. 
+	
+    $ conan install Abseil/latest@bincrafters/testing -o bazel_installer:with_jdk=False
+	
 ### Conan "latest" version convention
 
 Abseil has a unique versioning philosophy, so this package offers a unique versioning option on the packages by using a "conan alias" named "latest". 
