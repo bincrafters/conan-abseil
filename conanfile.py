@@ -5,7 +5,7 @@ from conans.tools import os_info
 class AbseilConan(ConanFile):
     name = "Abseil"
     version = "20170930"
-    settings = "os", "arch"
+    settings = "os", "arch", "compiler", "build_type"
     url = "https://github.com/bincrafters/conan-abseil"
     description = "Abseil Common Libraries (C++) from Google"
     license = "https://github.com/abseil/abseil-cpp/blob/master/LICENSE"
@@ -15,7 +15,7 @@ class AbseilConan(ConanFile):
     
     def build_requirements(self):
         if self.options.with_bazel:
-            self.build_requires("bazel_installer/0.6.0@bincrafters/testing")
+            self.build_requires("bazel_installer/0.6.0@bincrafters/stable")
         
     def source(self):
         source_url = "https://github.com/abseil/abseil-cpp"
