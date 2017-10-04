@@ -4,7 +4,8 @@ from conans.tools import os_info
 
 class AbseilConan(ConanFile):
     name = "Abseil"
-    version = "20170930"
+    version = "20171004"
+    commit_id = "9c4178d13e84acf3f0d1b8aeee1f67862aeeadc9"
     settings = "os", "arch", "compiler", "build_type"
     url = "https://github.com/bincrafters/conan-abseil"
     description = "Abseil Common Libraries (C++) from Google"
@@ -20,7 +21,9 @@ class AbseilConan(ConanFile):
     def source(self):
         source_url = "https://github.com/abseil/abseil-cpp"
         self.run("git clone --depth=1 {0}.git".format(source_url))
-        
+        with tools.chdir("./abseil-cpp"):
+            self.run("git checkout {0}".format(self.commit_id))
+                
     def build(self):
         
         with tools.chdir("./abseil-cpp"):
