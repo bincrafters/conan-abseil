@@ -77,11 +77,11 @@ To upload a package with an alias involved, it's a three-step process.
 
 The first step is standard, upload the concrete package you've recently built:
 
-    $ conan upload Abseil/09292017@bincrafters/testing --all -r bincrafters
+    $ conan upload Abseil/20170929@bincrafters/testing --all -r bincrafters
 
 The second step is to update the "alias package": 
 
-	$ conan alias Abseil/latest@bincrafters/testing Abseil/09292017@bincrafters/testing
+	$ conan alias Abseil/latest@bincrafters/testing Abseil/20170929@bincrafters/testing
 
 The third step is to upload the alias package:
 
