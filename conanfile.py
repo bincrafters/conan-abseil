@@ -41,12 +41,8 @@ class AbseilConan(ConanFile):
     def package(self):
         abseil_root = os.path.join("abseil-cpp", "bazel-abseil-cpp")
         out_dir = os.path.join(abseil_root, "bazel-out")
-        self.copy("*.h", dst="include",  src=abseil_root, excludes="*external*")
-        self.copy("*.lib", dst="lib", src=out_dir, excludes="*external*", keep_path=False)
-        self.copy("*.dll", dst="bin", src=out_dir, excludes="*external*", keep_path=False)
-        self.copy("*.dylib*", dst="lib", src=out_dir, excludes="*external*", keep_path=False)
-        self.copy("*.so", dst="lib", src=out_dir, excludes="*external*", keep_path=False)
-        self.copy("*.a", dst="lib", src=out_dir, excludes="*external*", keep_path=False)
+        self.copy("*.h", dst="include", src=abseil_root, excludes="*external*")
+        self.copy("*.a", dst="lib", src=out_dir, keep_path=False)
 
     def package_info(self):
         tools.collect_libs(self)
