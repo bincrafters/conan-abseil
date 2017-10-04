@@ -22,7 +22,7 @@ class AbseilConan(ConanFile):
         self.run("git clone --depth=1 {0}.git".format(source_url))
         
     def build(self):
-        bazel_query = "bazel query kind(cc_library, ...:all)"
+        
         with tools.chdir("./abseil-cpp"):
             if os_info.is_windows:
                 if str(self.settings.arch) == "x86":
@@ -32,21 +32,21 @@ class AbseilConan(ConanFile):
                     self.output.info("using 64bit for bazel")
                     cpu="x64_windows_msvc"
                     
-                cmd = '''for /f %a in ('"{0}"') do (bazel --batch build --cpu={1} %a)'''.format(bazel_query, cpu)
+                cmd_prefix = "bazel --batch build --cpu={0}".format(cpu)
             else:
-                cmd = '''{0} | xargs bazel --batch build"'''.format(bazel_query)
+                cmd_prefix = "bazel --batch build"
             
-            self.run(cmd)
+            self.run(cmd_prefix + " absl/...:all")
                     
     def package(self):
         abseil_root = os.path.join("abseil-cpp", "bazel-abseil-cpp")
         out_dir = os.path.join(abseil_root, "bazel-out")
-        self.copy("*.h", dst="include",  src=abseil_root)
-        self.copy("*.lib", dst="lib", src=out_dir, keep_path=False)
-        self.copy("*.dll", dst="bin", src=out_dir, keep_path=False)
-        self.copy("*.dylib*", dst="lib", src=out_dir, keep_path=False)
-        self.copy("*.so", dst="lib", src=out_dir, keep_path=False)
-        self.copy("*.a", dst="lib", src=out_dir, keep_path=False)
+        self.copy("*.h", dst="include",  src=abseil_root, excludes="*external*")
+        self.copy("*.lib", dst="lib", src=out_dir, excludes="*external*", keep_path=False)
+        self.copy("*.dll", dst="bin", src=out_dir, excludes="*external*", keep_path=False)
+        self.copy("*.dylib*", dst="lib", src=out_dir, excludes="*external*", keep_path=False)
+        self.copy("*.so", dst="lib", src=out_dir, excludes="*external*", keep_path=False)
+        self.copy("*.a", dst="lib", src=out_dir, excludes="*external*", keep_path=False)
 
     def package_info(self):
         tools.collect_libs(self)
