@@ -1,5 +1,4 @@
 from conans import ConanFile, tools, os
-from conans.tools import os_info
 
 
 class AbseilConan(ConanFile):
@@ -25,21 +24,8 @@ class AbseilConan(ConanFile):
             self.run("git checkout {0}".format(self.commit_id))
                 
     def build(self):
-        
         with tools.chdir("./abseil-cpp"):
-            if os_info.is_windows:
-                if str(self.settings.arch) == "x86":
-                    self.output.info("using 32bit for bazel")
-                    cpu="x86_windows_msvc"
-                else:
-                    self.output.info("using 64bit for bazel")
-                    cpu="x64_windows_msvc"
-                    
-                cmd_prefix = "bazel --batch build"
-            else:
-                cmd_prefix = "bazel --batch build"
-            
-            self.run(cmd_prefix + " absl/...:all")
+            self.run("bazel --batch build absl/...:all")
                     
     def package(self):
         abseil_root = os.path.join("abseil-cpp", "bazel-abseil-cpp")
