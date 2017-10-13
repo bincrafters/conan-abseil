@@ -19,11 +19,11 @@ This package has the following custom package options:
 
 `with_bazel` - The current default of true assumes you do not have Bazel installed, and so this package will include the bincrafters package for Bazel as a dependency. Thus, Bazel will be downloaded and installed automatically.  This can add significant convenience in many cases.  However, this will obviously take additional time to download which is slightly inefficient if you already have Bazel installed.  If this option is set to `False` a binary called `bazel` must be available at the CLI (typically via the PATH environment variable).  Conan options can be set in multiple places such as *conanfile.txt* and *conanfile.py*, or passed at the CLI when running `conan install ..` for example:  
 
-    $ conan install Abseil/latest@bincrafters/testing -o Abseil:with_bazel=False
+    $ conan install Abseil/latest@bincrafters/stable -o Abseil:with_bazel=False
 	
 Of note, the bincrafters Bazel package has it's own option for including an embedded JDK, or using one already installed.  Here's an example of installing Abseil with the default option to include Bazel, but to tell Bazel not to include the embedded JDK. 
 	
-    $ conan install Abseil/latest@bincrafters/testing -o bazel_installer:with_jdk=False
+    $ conan install Abseil/latest@bincrafters/stable -o bazel_installer:with_jdk=False
 
 Also of note, the Bazel package currently only supports x64 architecture.  If you want to use this package on a different architecture, you must have your own Bazel installation, and then set the `with_bazel` to `False` as shown above.
 	
@@ -41,14 +41,14 @@ If users want to use Abseil, perhaps staying up to date but with slightly more c
 
 ### Basic setup
 
-    $ conan install Abseil/latest@bincrafters/testing
+    $ conan install Abseil/latest@bincrafters/stable
 
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-    Abseil/latest@bincrafters/testing
+    Abseil/latest@bincrafters/stable
 
     [generators]
     txt
@@ -67,7 +67,7 @@ The example below shows the commands used to publish to bincrafters conan reposi
 
 The following command both runs all the steps of the conan file, and publishes the package to the local system cache.  This includes downloading dependencies from `build_requires` and `requires` , and then running the `build()` method. 
 
-    $ conan create bincrafters/testing
+    $ conan create bincrafters/stable
 	
 ## Add Remote
 
@@ -79,15 +79,15 @@ To upload a package with an alias involved, it's a three-step process.
 
 The first step is standard, upload the concrete package you've recently built:
 
-    $ conan upload Abseil/20171004@bincrafters/testing --all -r bincrafters
+    $ conan upload Abseil/20171004@bincrafters/stable --all -r bincrafters
 
 The second step is to update the "alias package": 
 
-	$ conan alias Abseil/latest@bincrafters/testing Abseil/20171004@bincrafters/testing
+	$ conan alias Abseil/latest@bincrafters/stable Abseil/20171004@bincrafters/stable
 
 The third step is to upload the alias package:
 
-	$conan upload Abseil/latest@bincrafters/testing --all -r bincrafters
+	$conan upload Abseil/latest@bincrafters/stable --all -r bincrafters
 	
 ### License
 [Apache License 2.0](LICENSE)
