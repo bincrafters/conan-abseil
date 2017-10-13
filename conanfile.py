@@ -35,7 +35,7 @@ class AbseilConan(ConanFile):
                     self.output.info("using 64bit for bazel")
                     cpu="x64_windows_msvc"
                     
-                cmd_prefix = "bazel --batch build --cpu={0}".format(cpu)
+                cmd_prefix = "bazel --batch build"
             else:
                 cmd_prefix = "bazel --batch build"
             
