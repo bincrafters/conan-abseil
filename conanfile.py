@@ -4,8 +4,8 @@ from conans.tools import os_info
 
 class AbseilConan(ConanFile):
     name = "Abseil"
-    version = "20171004"
-    commit_id = "9c4178d13e84acf3f0d1b8aeee1f67862aeeadc9"
+    version = "20171012"
+    commit_id = "1a9ba5e2e5a14413704f0c913fac53359576d3b6"
     settings = "os", "arch", "compiler", "build_type"
     url = "https://github.com/bincrafters/conan-abseil"
     description = "Abseil Common Libraries (C++) from Google"
