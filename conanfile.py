@@ -35,4 +35,5 @@ class AbseilConan(ConanFile):
 
     def package_info(self):
         tools.collect_libs(self)
-
+    def package_id(self):
+        self.info.options.with_bazel = "any" 
