@@ -37,7 +37,7 @@ def get_env_vars():
     return get_ci_vars() if is_ci_running() else get_default_vars()
 
 if __name__ == "__main__":
-    name, _ = get_name_from_recipe()
+    name = get_name_from_recipe()
     username, channel, version = get_env_vars()
     reference = "{0}/{1}".format(name, version)
     upload = "https://api.bintray.com/conan/{0}/public-conan".format(username)
