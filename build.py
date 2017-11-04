@@ -1,4 +1,5 @@
-from conan.packager import ConanMultiPackager, os, re
+from conan.packager import ConanMultiPackager
+import os, re, platform
 
 
 def get_value_from_recipe(search_string):
@@ -36,6 +37,9 @@ def get_ci_vars():
 def get_env_vars():
     return get_ci_vars() if is_ci_running() else get_default_vars()
 
+def get_os():
+    return platform.system().replace("Darwin", "Macos")
+    
 if __name__ == "__main__":
     name = get_name_from_recipe()
     username, channel, version = get_env_vars()
