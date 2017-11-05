@@ -45,12 +45,10 @@ if __name__ == "__main__":
     username, channel, version = get_env_vars()
     reference = "{0}/{1}".format(name, version)
     upload = "https://api.bintray.com/conan/{0}/public-conan".format(username)
-    args = "-o bazel_installer:with_jdk=True" if get_os() == "Linux" else ""
 
     os.environ["CONAN_ARCHS"] = "x86_64"
  
     builder = ConanMultiPackager(
-        args = args,
         username=username, 
         channel=channel, 
         reference=reference, 
