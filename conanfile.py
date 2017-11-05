@@ -4,7 +4,7 @@ import os
 
 class AbseilConan(ConanFile):
     name = "Abseil"
-    version = "20171012"
+    version = "20171101"
     commit_id = "c56e7827d6657f351dd2639b0224afa96f3a68d4"
     settings = "os", "arch", "compiler", "build_type"
     url = "https://github.com/bincrafters/conan-abseil"
