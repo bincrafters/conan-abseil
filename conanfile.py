@@ -16,7 +16,7 @@ class AbseilConan(ConanFile):
     
     def build_requirements(self):
         if self.options.with_bazel:
-            self.build_requires("bazel_installer/0.6.0@bincrafters/stables")
+            self.build_requires("bazel_installer/0.6.0@bincrafters/stable")
         
     def source(self):
         source_url = "https://github.com/abseil/abseil-cpp"
