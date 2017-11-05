@@ -1,7 +1,8 @@
 ## This repository holds a conan recipe for Abseil.
 
-[![Build status](https://ci.appveyor.com/api/projects/status/qw26b3cm4l60g29q/branch/testing/git-master?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-abseil/branch/testing/git-master)
-[![Build Status](https://travis-ci.org/bincrafters/conan-abseil.svg?branch=testing%2Fgit-master)](https://travis-ci.org/bincrafters/conan-abseil)
+[![Download](https://api.bintray.com/packages/bincrafters/public-conan/Abseil%3Abincrafters/images/download.svg?version=20171101%3Astable) ](https://bintray.com/bincrafters/public-conan/Abseil%3Abincrafters/20171101%3Astable/link)
+[![Build status](https://ci.appveyor.com/api/projects/status/qw26b3cm4l60g29q?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-abseil)
+[![Build Status](https://travis-ci.org/bincrafters/conan-abseil.svg?branch=stable%2F20171101)](https://travis-ci.org/bincrafters/conan-abseil)
 
 [Conan.io](https://conan.io) package for [Abseil](https://github.com/abseil/abseil-cpp) project
 
