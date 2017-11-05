@@ -20,9 +20,9 @@ class AbseilConan(ConanFile):
         
     def source(self):
         source_url = "https://github.com/abseil/abseil-cpp"
-        self.run("git clone --depth=1 {0}.git".format(source_url))
+        self.run("git clone {0}.git".format(source_url))
         with tools.chdir("./abseil-cpp"):
-            self.run("git checkout {0}".format(self.commit_id))
+            self.run("git checkout -f {0}".format(self.commit_id))
                 
     def build(self):
         with tools.chdir("./abseil-cpp"):
