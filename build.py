@@ -27,16 +27,18 @@ def get_module_url():
     
 if __name__ == "__main__":
 
-    bc_config_url = "https://github.com/bincrafters/conan-build_requires_profiles/archive/master.zip"
-    
-    os.system("conan config install " + bc_config_url)
-    
     tools.download(get_module_url(), get_module_filename(), overwrite=True)
     
     module = importlib.import_module(get_module_name())
     
     builder = module.get_builder()
     
-    builder.run("bazel_installer")
+    modified_builds = []	
+    for settings, options, env_vars, build_requires, reference in builder.items:
+        build_requires = {"*": ["bazel_installer/0.7.0@bincrafters/stable"]}
+        modified_builds.append([settings, options, env_vars, build_requires])
+    builder.builds = modified_builds
+ 
+    builder.run()
 
     
