@@ -26,6 +26,10 @@ def get_module_url():
 
     
 if __name__ == "__main__":
+
+    bc_config_url = "https://github.com/bincrafters/conan-build_requires_profiles/archive/master.zip"
+    
+    os.system.run("conan config install " + bc_config_url)
     
     tools.download(get_module_url(), get_module_filename(), overwrite=True)
     
@@ -33,6 +37,6 @@ if __name__ == "__main__":
     
     builder = module.get_builder()
     
-    builder.run()
+    builder.run("bazel_installer")
 
     
