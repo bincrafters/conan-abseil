@@ -29,10 +29,12 @@ class AbseilConan(ConanFile):
             self.run("bazel --batch build absl/...:all")
                     
     def package(self):
-        abseil_root = os.path.join(self.source_subfolder, "bazel-abseil-cpp")
-        out_dir = os.path.join(abseil_root, "bazel-out")
+        bazel_tmp_dir = "bazel-" + self.source_subfolder
+        bazel_root = os.path.join(self.source_subfolder, bazel_tmp_dir)
+        out_dir = os.path.join(bazel_root, "bazel-out")
+        
         self.copy("LICENSE", src=self.source_subfolder)
-        self.copy("*.h", dst="include", src=abseil_root, excludes="*external*")
+        self.copy("*.h", dst="include", src=bazel_root, excludes="*external*")
         self.copy("*.a", dst="lib", src=out_dir, keep_path=False)
 
     def package_info(self):
