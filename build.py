@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     bc_config_url = "https://github.com/bincrafters/conan-build_requires_profiles/archive/master.zip"
     
-    os.system.run("conan config install " + bc_config_url)
+    os.system("conan config install " + bc_config_url)
     
     tools.download(get_module_url(), get_module_filename(), overwrite=True)
     
