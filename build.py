@@ -35,7 +35,7 @@ if __name__ == "__main__":
     
     modified_builds = []	
     for settings, options, env_vars, build_requires, reference in builder.items:
-        build_requires = {"*": ["bazel_installer/0.7.0@bincrafters/stable"]}
+        build_requires.update({"*": ["bazel_installer/0.7.0@bincrafters/stable"]})
         modified_builds.append([settings, options, env_vars, build_requires])
     builder.builds = modified_builds
  
