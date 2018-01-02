@@ -6,7 +6,7 @@ import os
 
 
 class AbseilConan(ConanFile):
-    name = "Abseil"
+    name = "abseil"
     version = "20171101"
     commit_id = "c56e7827d6657f351dd2639b0224afa96f3a68d4"
     url = "https://github.com/bincrafters/conan-abseil"
@@ -15,21 +15,23 @@ class AbseilConan(ConanFile):
     exports = ["LICENSE.md"]
     short_paths = True
     settings = "os", "arch", "compiler", "build_type"
-           
+
+    source_subfolder = "source_subfolder"
+    
     def source(self):
         source_url = "https://github.com/abseil/abseil-cpp"
-        self.run("git clone {0}.git".format(source_url))
-        with tools.chdir("./abseil-cpp"):
-            self.run("git checkout -f {0}".format(self.commit_id))
-                
+        tools.get("{0}/archive/{1}.zip".format(source_url, self.commit_id))
+        extracted_dir = "abseil-cpp-" + self.commit_id
+        os.rename(extracted_dir, self.source_subfolder)
+                       
     def build(self):
-        with tools.chdir("./abseil-cpp"):
+        with tools.chdir(self.source_subfolder):
             self.run("bazel --batch build absl/...:all")
                     
     def package(self):
-        abseil_root = os.path.join("abseil-cpp", "bazel-abseil-cpp")
+        abseil_root = os.path.join(self.source_subfolder, "bazel-abseil-cpp")
         out_dir = os.path.join(abseil_root, "bazel-out")
-        self.copy("LICENSE", src="abseil-cpp")
+        self.copy("LICENSE", src=self.source_subfolder)
         self.copy("*.h", dst="include", src=abseil_root, excludes="*external*")
         self.copy("*.a", dst="lib", src=out_dir, keep_path=False)
 
