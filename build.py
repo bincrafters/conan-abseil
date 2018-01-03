@@ -24,7 +24,7 @@ def get_module_filename():
 def get_module_url():
     return get_module_location() + "/" + get_module_filename()
 
-    
+        
 if __name__ == "__main__":
 
     tools.download(get_module_url(), get_module_filename(), overwrite=True)
@@ -33,11 +33,8 @@ if __name__ == "__main__":
     
     builder = module.get_builder()
     
-    modified_builds = []	
     for settings, options, env_vars, build_requires, reference in builder.items:
-        build_requires.update({"*": ["bazel_installer/0.7.0@bincrafters/stable"]})
-        modified_builds.append([settings, options, env_vars, build_requires])
-    builder.builds = modified_builds
+        build_requires.update({"*": ["bazel_installer/0.7.0@bincrafters/stable", "java_installer/8.0.144@bincrafters/stable"]})
  
     builder.run()
 
