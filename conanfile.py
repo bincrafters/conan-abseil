@@ -1,41 +1,54 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from conans import ConanFile, tools
+from conans import ConanFile, CMake, tools
 import os
 
 
 class AbseilConan(ConanFile):
     name = "abseil"
-    version = "20171101"
-    commit_id = "c56e7827d6657f351dd2639b0224afa96f3a68d4"
+    version = "20180208"
+    commit_id = "7d6430661188dd482e3aa8d25f9ea895ebe93e2d"
     url = "https://github.com/bincrafters/conan-abseil"
     description = "Abseil Common Libraries (C++) from Google"
     license = "Apache-2.0"
     exports = ["LICENSE.md"]
-    short_paths = True
+    exports_sources = ["CMakeLists.txt"]
+    # short_paths = True
+    generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
-
     source_subfolder = "source_subfolder"
+    requires =  "cctz/20180206@bincrafters/testing"
     
     def source(self):
         source_url = "https://github.com/abseil/abseil-cpp"
         tools.get("{0}/archive/{1}.zip".format(source_url, self.commit_id))
         extracted_dir = "abseil-cpp-" + self.commit_id
         os.rename(extracted_dir, self.source_subfolder)
-                       
+        
+        # # Download CCTZ
+        # tools.get("https://github.com/google/cctz/archive/a3ce88d8463f318ea2dcd26d83bb96f98547f5d4.zip")
+        # os.rename("cctz-a3ce88d8463f318ea2dcd26d83bb96f98547f5d4", "absl/cctz")
+
+        # # Enable usage of CCTZ
+        # tools.replace_in_file("absl/CMakeLists.txt", "#add_subdirectory(cctz)", "add_subdirectory(cctz)")
+
+        
     def build(self):
-        with tools.chdir(self.source_subfolder):
-            self.run("bazel --batch build absl/...:all")
+        cmake = CMake(self)
+        cmake.definitions["BUILD_TESTING"] = False
+        cmake.definitions["ABSL_CCTZ_TARGET"] = "CONAN_PKG::cctz"
+        cmake.configure()
+        cmake.build()
                     
     def package(self):
-        bazel_tmp_dir = "bazel-" + self.source_subfolder
-        bazel_root = os.path.join(self.source_subfolder, bazel_tmp_dir)
-        out_dir = os.path.join(bazel_root, "bazel-out")
-        
         self.copy("LICENSE", src=self.source_subfolder)
-        self.copy("*.h", dst="include", src=bazel_root, excludes="*external*")
-        self.copy("*.a", dst="lib", src=out_dir, keep_path=False)
+        self.copy("*.h", dst="include", src=self.source_subfolder)
+        self.copy("*.inc", dst="include", src=self.source_subfolder)
+        self.copy("*.a", dst="lib", src=".", keep_path=False)
+        self.copy("*.lib", dst="lib", src=".", keep_path=False)
 
     def package_info(self):
         tools.collect_libs(self)
+        if self.settings.os == "Linux":
+            self.cpp_info.libs.append("pthread")
