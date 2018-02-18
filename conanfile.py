@@ -18,21 +18,13 @@ class AbseilConan(ConanFile):
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
     source_subfolder = "source_subfolder"
-    requires =  "cctz/20180206@bincrafters/testing"
+    requires =  "cctz/2.2@bincrafters/stable"
     
     def source(self):
         source_url = "https://github.com/abseil/abseil-cpp"
         tools.get("{0}/archive/{1}.zip".format(source_url, self.commit_id))
         extracted_dir = "abseil-cpp-" + self.commit_id
         os.rename(extracted_dir, self.source_subfolder)
-        
-        # # Download CCTZ
-        # tools.get("https://github.com/google/cctz/archive/a3ce88d8463f318ea2dcd26d83bb96f98547f5d4.zip")
-        # os.rename("cctz-a3ce88d8463f318ea2dcd26d83bb96f98547f5d4", "absl/cctz")
-
-        # # Enable usage of CCTZ
-        # tools.replace_in_file("absl/CMakeLists.txt", "#add_subdirectory(cctz)", "add_subdirectory(cctz)")
-
         
     def build(self):
         cmake = CMake(self)
@@ -42,7 +34,7 @@ class AbseilConan(ConanFile):
         cmake.build()
                     
     def package(self):
-        self.copy("LICENSE", src=self.source_subfolder)
+        self.copy("LICENSE", dst="licenses", src=self.source_subfolder)
         self.copy("*.h", dst="include", src=self.source_subfolder)
         self.copy("*.inc", dst="include", src=self.source_subfolder)
         self.copy("*.a", dst="lib", src=".", keep_path=False)
