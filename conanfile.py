@@ -18,7 +18,7 @@ class AbseilConan(ConanFile):
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
     source_subfolder = "source_subfolder"
-    requires =  "cctz/2.2@bincrafters/stable"
+    requires = "cctz/2.2@bincrafters/stable"
     
     def source(self):
         source_url = "https://github.com/abseil/abseil-cpp"
