@@ -9,7 +9,14 @@ if __name__ == "__main__":
 
     builder = build_template_default.get_builder(pure_c=False)
     
-    if build_shared.get_os() == "Linux":
-        builder.builds = filter(lambda b: b.settings['compiler.libcxx'] == 'libstdc++11', builder.items)
-
+    filtered_builds = []
+    for settings, options, env_vars, build_requires, reference in builder.items:
+        if settings['compiler'] == 'gcc' and float(settings['compiler.version']) > 5:
+            if settings['compiler.libcxx'] == 'libstdc++11':
+                filtered_builds.append([settings, options, env_vars, build_requires])
+        else:
+            filtered_builds.append([settings, options, env_vars, build_requires])
+            
+    builder.builds = filtered_builds
+    
     builder.run()

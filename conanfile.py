@@ -25,7 +25,17 @@ class AbseilConan(ConanFile):
         tools.get("{0}/archive/{1}.zip".format(source_url, self.commit_id))
         extracted_dir = "abseil-cpp-" + self.commit_id
         os.rename(extracted_dir, self.source_subfolder)
-        
+
+    def configure(self):
+        if self.settings.os == 'Linux':
+            compiler = self.settings.compiler
+            version = float(self.settings.compiler.version.value)
+            libcxx = compiler.libcxx
+            if compiler == 'gcc' and version > 5 and libcxx != 'libstdc++11':
+                raise ConanException(
+                    'Using abseil with GCC > 5 on Linux requires "compiler.libcxx=libstdc++11"'
+                    'but was passed: ' + str(self.settings.compiler.libcxx))
+                    
     def build(self):
         cmake = CMake(self)
         cmake.definitions["BUILD_TESTING"] = False
