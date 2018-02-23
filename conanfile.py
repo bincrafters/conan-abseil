@@ -7,8 +7,8 @@ import os
 
 class AbseilConan(ConanFile):
     name = "abseil"
-    version = "20180208"
-    commit_id = "7d6430661188dd482e3aa8d25f9ea895ebe93e2d"
+    version = "20180223"
+    commit_id = "0d40cb771eec8741f44e5979cfccf1eeeedb012a"
     url = "https://github.com/bincrafters/conan-abseil"
     description = "Abseil Common Libraries (C++) from Google"
     license = "Apache-2.0"
