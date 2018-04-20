@@ -52,6 +52,32 @@ class AbseilConan(ConanFile):
         self.copy("*.lib", dst="lib", src=".", keep_path=False)
 
     def package_info(self):
-        self.cpp_info.libs = tools.collect_libs(self)
+        self.cpp_info.libs = [
+            "absl_base",
+            "absl_memory",
+            "absl_meta",
+            "absl_strings",
+            "absl_optional",
+            "absl_spinlock_wait",
+            "absl_stack_consumption",
+            "absl_algorithm",
+            "absl_bad_any_cast",
+            "absl_debugging",
+            "absl_malloc_extension",
+            "absl_malloc_internal",
+            "absl_synchronization",
+            "absl_throw_delegate",
+            "absl_time",
+            "absl_any",
+            "absl_bad_optional_access",
+            "absl_dynamic_annotations",
+            "absl_int128",
+            "absl_numeric",
+            "absl_span",
+            "absl_stacktrace",
+            "absl_utility",
+            "absl_container",
+            "absl_leak_check"
+            ]
         if self.settings.os == "Linux":
             self.cpp_info.libs.append("pthread")
