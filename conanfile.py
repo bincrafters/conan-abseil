@@ -53,6 +53,7 @@ class AbseilConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = [
+            "absl_base",
             "absl_memory",
             "absl_meta",
             "absl_strings",
@@ -76,8 +77,7 @@ class AbseilConan(ConanFile):
             "absl_stacktrace",
             "absl_utility",
             "absl_container",
-            "absl_leak_check",
-            "absl_base",
+            "absl_leak_check"
             ]
         if self.settings.os == "Linux":
             self.cpp_info.libs.append("pthread")
