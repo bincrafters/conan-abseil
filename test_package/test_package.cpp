@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -6,7 +7,8 @@
 int main() {
   std::vector<std::string> v = {"foo","bar","baz"};
   std::string s = absl::StrJoin(v, "-");
+  absl::StrAppend(&s, 5);
   std::cout << "Joined string: " << s << "\n";
 
-  return(0);
+  return EXIT_SUCCESS;
 }
