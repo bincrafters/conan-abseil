@@ -11,7 +11,9 @@ class AbseilConan(ConanFile):
     version = "20180223"
     commit_id = "0d40cb771eec8741f44e5979cfccf1eeeedb012a"
     url = "https://github.com/bincrafters/conan-abseil"
+    homepage = "https://github.com/abseil/abseil-cpp"
     description = "Abseil Common Libraries (C++) from Google"
+    author = "Bincrafters <bincrafters@gmail.com>"
     license = "Apache-2.0"
     exports = ["LICENSE.md"]
     exports_sources = ["CMakeLists.txt"]
@@ -22,8 +24,7 @@ class AbseilConan(ConanFile):
     requires = "cctz/2.2@bincrafters/stable"
     
     def source(self):
-        source_url = "https://github.com/abseil/abseil-cpp"
-        tools.get("{0}/archive/{1}.zip".format(source_url, self.commit_id))
+        tools.get("{0}/archive/{1}.zip".format(self.homepage, self.commit_id))
         extracted_dir = "abseil-cpp-" + self.commit_id
         os.rename(extracted_dir, self.source_subfolder)
 
@@ -54,30 +55,32 @@ class AbseilConan(ConanFile):
     def package_info(self):
         self.cpp_info.libs = [
             "absl_base",
-            "absl_memory",
-            "absl_meta",
-            "absl_strings",
-            "absl_optional",
-            "absl_spinlock_wait",
-            "absl_stack_consumption",
-            "absl_algorithm",
-            "absl_bad_any_cast",
-            "absl_debugging",
-            "absl_malloc_extension",
-            "absl_malloc_internal",
             "absl_synchronization",
-            "absl_throw_delegate",
+            "absl_strings",
+            "absl_malloc_internal",
             "absl_time",
-            "absl_any",
-            "absl_bad_optional_access",
+            "absl_strings",
+            "absl_base",
             "absl_dynamic_annotations",
-            "absl_int128",
-            "absl_numeric",
-            "absl_span",
+            "absl_spinlock_wait",
+            "absl_throw_delegate",
             "absl_stacktrace",
-            "absl_utility",
+            "absl_int128",
+            "absl_span",
+            "test_instance_tracker_lib",
+            "absl_stack_consumption",
+            "absl_bad_any_cast",
+            "absl_numeric",
+            "absl_any",
+            "absl_optional",
             "absl_container",
-            "absl_leak_check"
-            ]
+            "absl_debugging",
+            "absl_memory",
+            "absl_leak_check",
+            "absl_meta",
+            "absl_utility",
+            "absl_bad_optional_access",
+            "absl_algorithm"
+        ]
         if self.settings.os == "Linux":
             self.cpp_info.libs.append("pthread")
