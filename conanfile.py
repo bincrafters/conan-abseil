@@ -52,7 +52,7 @@ class AbseilConan(ConanFile):
         self.copy("*.lib", dst="lib", src=".", keep_path=False)
 
     def package_info(self):
-        self.cpp_info.libs = ["absl_base", "absl_synchronization", "absl_strings",
+        self.cpp_info.libs = ["absl_synchronization",
                               "absl_symbolize", "absl_malloc_internal", "absl_time",
                               "absl_strings", "absl_base", "absl_dynamic_annotations",
                               "absl_spinlock_wait", "absl_throw_delegate",
