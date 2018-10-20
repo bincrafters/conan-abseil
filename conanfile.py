@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from conans import ConanFile, CMake, tools
-from conans.errors import ConanException
 import os
+from conans import ConanFile, CMake, tools
+from conans.errors import ConanInvalidConfiguration
 
 
 class AbseilConan(ConanFile):
@@ -17,11 +17,10 @@ class AbseilConan(ConanFile):
     license = "Apache-2.0"
     exports = ["LICENSE.md"]
     exports_sources = ["CMakeLists.txt"]
-    # short_paths = True
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
-    _source_subfolder = "source_subfolder"
     requires = "cctz/2.2@bincrafters/stable"
+    _source_subfolder = "source_subfolder"
     
     def source(self):
         tools.get("{0}/archive/{1}.zip".format(self.homepage, self._commit_id))
