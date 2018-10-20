@@ -9,8 +9,7 @@ from conans.model.version import Version
 
 class AbseilConan(ConanFile):
     name = "abseil"
-    version = "20180600"
-    commit_id = "445998d7ac4e5d3c50411d377e3b50e960d2d6c2"
+    version = "20180600"    
     url = "https://github.com/bincrafters/conan-abseil"
     homepage = "https://github.com/abseil/abseil-cpp"
     author = "Bincrafters <bincrafters@gmail.com>"
@@ -22,10 +21,11 @@ class AbseilConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"    
     requires = "cctz/2.2@bincrafters/stable"
     _source_subfolder = "source_subfolder"
+    _commit_id = "445998d7ac4e5d3c50411d377e3b50e960d2d6c2"
     
     def source(self):
         tools.get("{0}/archive/{1}.zip".format(self.homepage, self.commit_id))
-        extracted_dir = "abseil-cpp-" + self.commit_id
+        extracted_dir = "abseil-cpp-" + self._commit_id
         os.rename(extracted_dir, self._source_subfolder)
 
     def configure(self):
@@ -49,9 +49,7 @@ class AbseilConan(ConanFile):
         self.copy("*.lib", dst="lib", src=".", keep_path=False)
 
     def package_info(self):
-        self.cpp_info.libs = ["absl_base",
-                              "absl_synchronization",
-                              "absl_strings",
+        self.cpp_info.libs = ["absl_synchronization",                              
                               "absl_symbolize",
                               "absl_malloc_internal",
                               "absl_time",

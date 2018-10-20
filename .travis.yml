@@ -36,7 +36,7 @@ matrix:
         osx_image: xcode8.3
         env: CONAN_APPLE_CLANG_VERSIONS=8.1
       - <<: *osx
-        osx_image: xcode9
+        osx_image: xcode9.2
         env: CONAN_APPLE_CLANG_VERSIONS=9.0
       - <<: *osx
         osx_image: xcode9.4
