@@ -29,19 +29,10 @@ class AbseilConan(ConanFile):
         os.rename(extracted_dir, self._source_subfolder)
 
     def configure(self):
-        if self.settings.os == 'Linux':
-            compiler = self.settings.compiler
-            version = float(self.settings.compiler.version.value)
-            libcxx = compiler.libcxx
-            if compiler == 'gcc' and version > 5 and libcxx != 'libstdc++11':
-                raise ConanException(
-                    'Using abseil with GCC > 5 on Linux requires "compiler.libcxx=libstdc++11"'
-                    'but was passed: ' + str(self.settings.compiler.libcxx))
-        elif self.settings.os == 'Windows':
+        if self.settings.os == 'Windows':
             if self.settings.compiler == "Visual Studio" and \
                float(self.settings.compiler.version.value) < 14:
                 raise ConanInvalidConfiguration("Abseil requires Visual Studio >= 14")
-
                     
     def build(self):
         cmake = CMake(self)
