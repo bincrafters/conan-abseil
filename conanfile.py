@@ -24,7 +24,7 @@ class AbseilConan(ConanFile):
     _commit_id = "445998d7ac4e5d3c50411d377e3b50e960d2d6c2"
     
     def source(self):
-        tools.get("{0}/archive/{1}.zip".format(self.homepage, self.commit_id))
+        tools.get("{0}/archive/{1}.zip".format(self.homepage, self._commit_id))
         extracted_dir = "abseil-cpp-" + self._commit_id
         os.rename(extracted_dir, self._source_subfolder)
 
