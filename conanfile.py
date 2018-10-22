@@ -49,9 +49,7 @@ class AbseilConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = [
-            "absl_base",
             "absl_synchronization",
-            "absl_strings",
             "absl_malloc_internal",
             "absl_time",
             "absl_strings",
