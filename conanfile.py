@@ -14,7 +14,8 @@ class AbseilConan(ConanFile):
     homepage = "https://github.com/abseil/abseil-cpp"
     author = "Bincrafters <bincrafters@gmail.com>"
     description = "Abseil Common Libraries (C++) from Google"
-    topics = "abseil", "algorithm", "container", "debugging", "hash", "memory", "meta", "numeric", "string", "synchronization", "time", "types", "utility"
+    topics = "abseil", "algorithm", "container", "debugging", "hash", "memory", "meta", "numeric", "string", \
+             "synchronization", "time", "types", "utility"
     license = "Apache-2.0"
     exports = ["LICENSE.md"]
     exports_sources = ["CMakeLists.txt"]
@@ -34,7 +35,7 @@ class AbseilConan(ConanFile):
         if self.settings.os == "Windows" and \
            self.settings.compiler == "Visual Studio" and \
            Version(self.settings.compiler.version.value) < "14":
-               raise ConanInvalidConfiguration("Abseil does not support MSVC < 14")
+            raise ConanInvalidConfiguration("Abseil does not support MSVC < 14")
 
     def build(self):
         cmake = CMake(self)
