@@ -24,6 +24,7 @@ class AbseilConan(ConanFile):
     requires = "cctz/2.2@bincrafters/stable"
     options = {"cxx_standard": [11, 14, 17], "build_testing": [True, False]}
     default_options = {"cxx_standard": 11, "build_testing": False}
+    short_paths = True
     _source_subfolder = "source_subfolder"
 
     def source(self):
@@ -87,6 +88,6 @@ class AbseilConan(ConanFile):
                               "absl_variant",
                               "pow10_helper",
                               "str_format_extension_internal",
-                              "str_format_internal",]
+                              "str_format_internal"]
         if self.settings.os == "Linux":
             self.cpp_info.libs.append("pthread")
