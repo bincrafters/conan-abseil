@@ -18,7 +18,7 @@ class AbseilConan(ConanFile):
              "synchronization", "time", "types", "utility"
     license = "Apache-2.0"
     exports = ["LICENSE.md"]
-    exports_sources = ["CMakeLists.txt"]
+    exports_sources = ["CMakeLists.txt", "*leak_check.patch"]
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
     requires = "cctz/2.2@bincrafters/stable"
@@ -30,6 +30,7 @@ class AbseilConan(ConanFile):
         tools.get("{0}/archive/{1}.zip".format(self.homepage, self.version))
         extracted_dir = "abseil-cpp-" + self.version
         os.rename(extracted_dir, self._source_subfolder)
+        tools.patch(patch_file="leak_check.patch", base_path=self._source_subfolder)
 
     def configure(self):
         if self.settings.os == "Windows" and \
