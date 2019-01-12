@@ -14,6 +14,7 @@ class AbseilConan(ConanFile):
     homepage = "https://github.com/abseil/abseil-cpp"
     author = "Bincrafters <bincrafters@gmail.com>"
     description = "Abseil Common Libraries (C++) from Google"
+    topics = "abseil", "algorithm", "container", "debugging", "hash", "memory", "meta", "numeric", "string", "synchronization", "time", "types", "utility"
     license = "Apache-2.0"
     exports = ["LICENSE.md"]
     exports_sources = ["CMakeLists.txt"]
