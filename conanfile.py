@@ -49,13 +49,10 @@ class AbseilConan(ConanFile):
         self.copy("*.lib", dst="lib", src=".", keep_path=False)
 
     def package_info(self):
-        if self.settings.os != "Windows":
+        if self.settings.os == "Linux":
             self.cpp_info.libs = ["-Wl,--start-group"]
 
         self.cpp_info.libs.extend(tools.collect_libs(self))
 
-        if self.settings.os != "Windows":
-            self.cpp_info.libs.append("-Wl,--end-group")
-
         if self.settings.os == "Linux":
-            self.cpp_info.libs.append("pthread")
+            self.cpp_info.libs.extend(["-Wl,--end-group", "pthread"])
