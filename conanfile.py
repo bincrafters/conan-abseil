@@ -55,6 +55,8 @@ class AbseilConan(ConanFile):
         self.copy("*.lib", dst="lib", src=".", keep_path=False)
 
     def package_info(self):
+        if self.settings.os == "Linux":
+            self.cpp_info.libs = ["-Wl,--start-group"]
         self.cpp_info.libs = ["absl_dynamic_annotations",
                               "absl_internal_spinlock_wait",
                               "absl_bad_optional_access",
