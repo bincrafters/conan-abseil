@@ -22,8 +22,8 @@ class AbseilConan(ConanFile):
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
     requires = "cctz/2.2@bincrafters/stable"
-    options = {"cxx_standard": [11, 14, 17], "build_testing": [True, False]}
-    default_options = {"cxx_standard": 11, "build_testing": False}
+    options = {"cxx_standard": [11, 14, 17], "build_testing": [True, False], "fPIC" : [True, False]}
+    default_options = {"cxx_standard": 11, "build_testing": False, "fPIC": True}
     short_paths = True
     _source_subfolder = "source_subfolder"
 
@@ -32,6 +32,10 @@ class AbseilConan(ConanFile):
         extracted_dir = "abseil-cpp-" + self.version
         os.rename(extracted_dir, self._source_subfolder)
         tools.patch(patch_file="leak_check.patch", base_path=self._source_subfolder)
+
+    def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
 
     def configure(self):
         if self.settings.os == "Windows" and \
@@ -53,6 +57,8 @@ class AbseilConan(ConanFile):
         self.copy("*.inc", dst="include", src=self._source_subfolder)
         self.copy("*.a", dst="lib", src=".", keep_path=False)
         self.copy("*.lib", dst="lib", src=".", keep_path=False)
+        self.copy("*.so", dst="lib", src=".", keep_path=False)
+        self.copy("*.dll", dst="bin", src=".", keep_path=False)
 
     def package_info(self):
         if self.settings.os == "Linux":
