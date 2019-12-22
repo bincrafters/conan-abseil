@@ -2,7 +2,7 @@
 
 | Bintray | Windows | Linux & macOS | 
 |:--------:|:---------:|:-----------------:|
-|[![Download](https://api.bintray.com/packages/bincrafters/public-conan/abseil%3Abincrafters/images/download.svg)](https://bintray.com/bincrafters/public-conan/abseil%3Abincrafters/_latestVersion)|[![Build status](https://ci.appveyor.com/api/projects/status/github/bincrafters/abseil?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-abseil)|[![Build Status](https://travis-ci.org/bincrafters/conan-abseil.svg)](https://travis-ci.org/bincrafters/conan-abseil)|
+|[![Download](https://api.bintray.com/packages/bincrafters/public-conan/abseil%3Abincrafters/images/download.svg)](https://bintray.com/bincrafters/public-conan/abseil%3Abincrafters/_latestVersion)|[![Build status](https://ci.appveyor.com/api/projects/status/github/bincrafters/abseil?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-abseil)|[![Build Status](https://travis-ci.com/bincrafters/conan-abseil.svg)](https://travis-ci.com/bincrafters/conan-abseil)|
 
 ## Conan.io Information
 

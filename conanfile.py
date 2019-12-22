@@ -1,10 +1,7 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import os
 from conans import ConanFile, CMake, tools
 from conans.errors import ConanInvalidConfiguration
-from conans.model.version import Version
+from conans.tools import Version
 
 
 class AbseilConan(ConanFile):
@@ -12,16 +9,14 @@ class AbseilConan(ConanFile):
     version = "20181200"
     url = "https://github.com/bincrafters/conan-abseil"
     homepage = "https://github.com/abseil/abseil-cpp"
-    author = "Bincrafters <bincrafters@gmail.com>"
     description = "Abseil Common Libraries (C++) from Google"
-    topics = "abseil", "algorithm", "container", "debugging", "hash", "memory", "meta", "numeric", "string", \
-             "synchronization", "time", "types", "utility"
+    topics = ("abseil", "algorithm", "container", "debugging", "hash", "memory", "meta", "numeric", "string", 
+                "synchronization", "time", "types", "utility")
     license = "Apache-2.0"
-    exports = ["LICENSE.md"]
     exports_sources = ["CMakeLists.txt", "*leak_check.patch"]
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
-    requires = "cctz/2.2@bincrafters/stable"
+    requires = "cctz/2.3@bincrafters/stable"
     options = {"cxx_standard": [11, 14, 17], "build_testing": [True, False], "fPIC" : [True, False]}
     default_options = {"cxx_standard": 11, "build_testing": False, "fPIC": True}
     short_paths = True
@@ -98,4 +93,4 @@ class AbseilConan(ConanFile):
                                    "absl_time",
                                    "absl_synchronization"])
         if self.settings.os == "Linux":
-            self.cpp_info.libs.append("pthread")
+            self.cpp_info.system_libs.append("pthread")
