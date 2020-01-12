@@ -16,7 +16,7 @@ class AbseilConan(ConanFile):
     exports_sources = ["CMakeLists.txt", "*leak_check.patch"]
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
-    requires = "cctz/2.3@bincrafters/stable"
+    requires = "cctz/2.3"
     options = {"cxx_standard": [11, 14, 17], "build_testing": [True, False], "fPIC" : [True, False]}
     default_options = {"cxx_standard": 11, "build_testing": False, "fPIC": True}
     short_paths = True
