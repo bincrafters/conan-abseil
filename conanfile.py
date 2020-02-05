@@ -15,8 +15,8 @@ class AbseilConan(ConanFile):
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
     requires = "cctz/2.3"
-    options = {"cxx_standard": [11, 14, 17], "build_testing": [True, False], "fPIC" : [True, False]}
-    default_options = {"cxx_standard": 11, "build_testing": False, "fPIC": True}
+    options = {"cxx_standard": [11, 14, 17], "fPIC" : [True, False]}
+    default_options = {"cxx_standard": 11, "fPIC": True}
     short_paths = True
     _source_subfolder = "source_subfolder"
     _commits = {
@@ -40,7 +40,7 @@ class AbseilConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.definitions["BUILD_TESTING"] = self.options.build_testing
+        cmake.definitions["BUILD_TESTING"] = "Off"
         cmake.definitions["CMAKE_CXX_STANDARD"] = self.options.cxx_standard
         cmake.definitions["ABSL_CCTZ_TARGET"] = "CONAN_PKG::cctz"
         cmake.configure()
