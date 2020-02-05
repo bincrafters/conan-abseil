@@ -1,19 +1,17 @@
-import os
 from conans import ConanFile, CMake, tools
 from conans.errors import ConanInvalidConfiguration
 from conans.tools import Version
-
+import os
 
 class AbseilConan(ConanFile):
     name = "abseil"
-    version = "20181200"
     url = "https://github.com/bincrafters/conan-abseil"
     homepage = "https://github.com/abseil/abseil-cpp"
     description = "Abseil Common Libraries (C++) from Google"
     topics = ("abseil", "algorithm", "container", "debugging", "hash", "memory", "meta", "numeric", "string", 
                 "synchronization", "time", "types", "utility")
     license = "Apache-2.0"
-    exports_sources = ["CMakeLists.txt", "*leak_check.patch"]
+    exports_sources = ["CMakeLists.txt"]
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
     requires = "cctz/2.3"
@@ -23,10 +21,9 @@ class AbseilConan(ConanFile):
     _source_subfolder = "source_subfolder"
 
     def source(self):
-        tools.get("{0}/archive/{1}.zip".format(self.homepage, self.version))
-        extracted_dir = "abseil-cpp-" + self.version
+        tools.get(**self.conan_data["sources"][self.version])
+        extracted_dir = self.name + "-" + self.version
         os.rename(extracted_dir, self._source_subfolder)
-        tools.patch(patch_file="leak_check.patch", base_path=self._source_subfolder)
 
     def config_options(self):
         if self.settings.os == "Windows":
