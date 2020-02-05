@@ -19,10 +19,13 @@ class AbseilConan(ConanFile):
     default_options = {"cxx_standard": 11, "build_testing": False, "fPIC": True}
     short_paths = True
     _source_subfolder = "source_subfolder"
+    _commits = {
+        "20190808": "aa844899c937bde5d2b24f276b59997e5b668bde",
+    }
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
-        extracted_dir = self.name + "-" + self.version
+        extracted_dir = "abseil-cpp-" + self._commits[self.version]
         os.rename(extracted_dir, self._source_subfolder)
 
     def config_options(self):
